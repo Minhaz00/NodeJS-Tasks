@@ -22,7 +22,7 @@ npm init -y
 **Install the required packages:**
 
 ```bash
-npm install express sequelize mysql2 body-parser
+npm install express sequelize mysql2 body-parser nodemon
 ```
 
 
@@ -48,7 +48,7 @@ my-rest-api
 │   └── user.js
 ├── routes
 │   └── user.js
-├── app.js
+├── index.js
 └── package.json
 ```
 
@@ -58,8 +58,8 @@ my-rest-api
 ```json
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "myuser",
+    "password": "mypassword",
     "database": "my_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -79,8 +79,14 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+
+const config = {
+    username: process.env.DB_USERNAME, 
+    password: process.env.DB_PASSWORD, 
+    database: process.env.DB_NAME, 
+    host: process.env.DB_HOST, 
+    dialect: "mysql"
+};
 
 const db = {};
 
@@ -97,7 +103,7 @@ fs
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 
@@ -113,21 +119,27 @@ db.Sequelize = Sequelize;
 module.exports = db;
 ```
 
-This file initializes Sequelize, reads all model files, and loads them into the `db` object. It also handles the connection to the database based on the configuration in `config.json`.
+This file initializes Sequelize, reads all model files, and loads them into the `db` object. It also handles the connection to the database based on the configuration.
 
 **Define the User model:**
 
 **`models/user.js`**
 ```javascript
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
     }
   });
 
@@ -255,8 +267,8 @@ db.sequelize.sync().then(() => {
 
 1. **Run MySQL container in Docker:**
 
-    ```bash
-    docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=my_db -p 3306:3306 -d mysql:latest
+    ```shell
+    docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=myuser -e MYSQL_PASSWORD=mypassword -e MYSQL_DATABASE=my_db -p 3306:3306 -d mysql:latest
     ```
 
 1. **Start the application:**
