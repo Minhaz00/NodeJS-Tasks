@@ -112,7 +112,7 @@ spec:
     - ReadWriteOnce
 ```
 
-#### 3. Node.js Application Deployment and Service
+### 3. Node.js Application Deployment and Service
 
 Create a file named `nodejs-deployment.yaml`:
 
@@ -212,6 +212,21 @@ To access your application, use the IP address of any node in your Kubernetes cl
 kubectl get nodes -o wide
 ```
 
+Expected result [in my case]:
+```sh
+root@7f47fb32b315b745:~# kubectl get nodes -o wide 
+NAME                      STATUS   ROLES                       AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION   CONTAINER-
+RUNTIME
+cluster-ukcamj-master-1   Ready    control-plane,etcd,master   57m   v1.30.1+k3s1   10.62.7.56    <none>        Ubuntu 20.04.6 LTS   4.19.125         containerd
+://1.7.15-k3s1
+cluster-ukcamj-worker-1   Ready    <none>                      57m   v1.30.1+k3s1   10.62.7.57    <none>        Ubuntu 20.04.6 LTS   4.19.125         containerd
+://1.7.15-k3s1
+cluster-ukcamj-worker-2   Ready    <none>                      57m   v1.30.1+k3s1   10.62.7.58    <none>        Ubuntu 20.04.6 LTS   4.19.125         containerd
+://1.7.15-k3s1
+```
+
+I will be using `10.62.7.56` as `NOdeIP`. It can be different in your case.
+
 Now curl the following address:
 ```sh
 curl http://<NodeIP>:30007
@@ -227,75 +242,84 @@ er by ID."},{"method":"PUT","route":"/users/:id","description":"Update a user by
 D."}]}
 ```
 
-### Create new users
+It shows the API endpoints with a message:
+- POST /users: Create a new user.
+- GET /users: Get all users.
+- GET /users/:id: Get a user by ID.
+- PUT /users/:id: Update a user by ID.
+- DELETE /users/:id: Delete a user by ID.
 
-Let's create 2 new users:
+## Step 6: Test the CRUD operations
 
-Command:
-```bash
-curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "John Doe", "email": "johndoe@example.com"}'
+- ### Create new users
 
-curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "Minhaz", "email": "minhaz@example.com"}'
-```
+    Let's create 2 new users.
 
-Expected output:
-```sh
-root@7f47fb32b315b745:~# curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "John Doe", "email": "johndoe@example.com"}'
+    Command:
+    ```bash
+    curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "John Doe", "email": "johndoe@example.com"}'
 
-{"id":1,"username":"John Doe","email":"johndoe@example.com","updatedAt":"2024-06-19T11:48:40.798Z","createdAt":"2024-06-19T11:48:40.798Z"}
+    curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "Minhaz", "email": "minhaz@example.com"}'
+    ```
 
-root@7f47fb32b315b745:~# curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "Minhaz", "email": "minhaz@example.com"}'
+    Expected output:
+    ```sh
+    root@7f47fb32b315b745:~# curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "John Doe", "email": "johndoe@example.com"}'
 
-{"id":2,"username":"Minhaz","email":"minhaz@example.com","updatedAt":"2024-06-19T11:51:57.241Z","createdAt":"2024-06-19T11:51:57.241Z"}
-```
+    {"id":1,"username":"John Doe","email":"johndoe@example.com","updatedAt":"2024-06-19T11:48:40.798Z","createdAt":"2024-06-19T11:48:40.798Z"}
+
+    root@7f47fb32b315b745:~# curl -X POST http://10.62.7.56:30007/users -H "Content-Type: application/json" -d '{"username": "Minhaz", "email": "minhaz@example.com"}'
+
+    {"id":2,"username":"Minhaz","email":"minhaz@example.com","updatedAt":"2024-06-19T11:51:57.241Z","createdAt":"2024-06-19T11:51:57.241Z"}
+    ```
 
 
-### Get all users / user by id
+- ### Get all users / user by id
 
-Command:
-```bash
-curl 10.62.7.56:30007/users
-curl 10.62.7.56:30007/users/2
-```
+    Command:
+    ```bash
+    curl 10.62.7.56:30007/users
+    curl 10.62.7.56:30007/users/2
+    ```
 
-Expected result:
+    Expected result:
 
-```bash
-root@7f47fb32b315b745:~# curl 10.62.7.56:30007/users
-[{"id":1,"username":"John Doe","email":"johndoe@example.com","createdAt":"2024-06-19T11:48:40.000Z","updatedAt":"2024-06-19T11:48:40.000Z"},{"id":2,"username":"
-Minhaz","email":"minhaz@example.com","createdAt":"2024-06-19T11:51:57.000Z","updatedAt":"2024-06-19T11:51:57.000Z"}]
+    ```bash
+    root@7f47fb32b315b745:~# curl 10.62.7.56:30007/users
+    [{"id":1,"username":"John Doe","email":"johndoe@example.com","createdAt":"2024-06-19T11:48:40.000Z","updatedAt":"2024-06-19T11:48:40.000Z"},{"id":2,"username":"
+    Minhaz","email":"minhaz@example.com","createdAt":"2024-06-19T11:51:57.000Z","updatedAt":"2024-06-19T11:51:57.000Z"}]
 
-root@7f47fb32b315b745:~# curl 10.62.7.56:30007/users/2
-{"id":2,"username":"Minhaz","email":"minhaz@example.com","createdAt":"2024-06-19T11:51:57.000Z","updatedAt":"2024-06-19T11:51:57.000Z"}
+    root@7f47fb32b315b745:~# curl 10.62.7.56:30007/users/2
+    {"id":2,"username":"Minhaz","email":"minhaz@example.com","createdAt":"2024-06-19T11:51:57.000Z","updatedAt":"2024-06-19T11:51:57.000Z"}
 
-root@7f47fb32b315b745:~# 
-```
+    root@7f47fb32b315b745:~# 
+    ```
 
-### Update user
+- ### Update user
 
-Let's update the username and email of the first user and varify the updates:
-```sh
-curl -X PUT http://10.62.7.56:30007/users/1 -H "Content-Type: application/json" -d '{"username": "John Smith", "email": "johnsmith@example.com"}'
+    Let's update the username and email of the first user and varify the updates:
+    ```sh
+    curl -X PUT http://10.62.7.56:30007/users/1 -H "Content-Type: application/json" -d '{"username": "John Smith", "email": "johnsmith@example.com"}'
 
-curl 10.62.7.56:30007/users/1
-```
+    curl 10.62.7.56:30007/users/1
+    ```
 
-Expected result:
-```bash
-root@7f47fb32b315b745:~# curl -X PUT http://10.62.7.56:30007/users/1 -H "Content-Type: application/json" -d '{"username": "John Smith", "email": "johnsmith@example.com"}'
+    Expected result:
+    ```bash
+    root@7f47fb32b315b745:~# curl -X PUT http://10.62.7.56:30007/users/1 -H "Content-Type: application/json" -d '{"username": "John Smith", "email": "johnsmith@example.com"}'
 
-root@7f47fb32b315b745:~# curl 10.62.7.56:30007/users/1
-{"id":1,"username":"John Smith","email":"johnsmith@example.com","createdAt":"2024-06-19T11:48:40.000Z","updatedAt":"2024-06-19T12:08:15.000Z"}
+    root@7f47fb32b315b745:~# curl 10.62.7.56:30007/users/1
+    {"id":1,"username":"John Smith","email":"johnsmith@example.com","createdAt":"2024-06-19T11:48:40.000Z","updatedAt":"2024-06-19T12:08:15.000Z"}
 
-root@7f47fb32b315b745:~# 
-```
+    root@7f47fb32b315b745:~# 
+    ```
 
-### Delete user
+- ### Delete user
 
-Let's delete the first user:
-```sh
-curl -X DELETE http://10.62.7.56:30007/users/1
-```
+    Let's delete the first user:
+    ```sh
+    curl -X DELETE http://10.62.7.56:30007/users/1
+    ```
 
 ## Conclusion
 
