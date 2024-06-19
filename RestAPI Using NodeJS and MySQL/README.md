@@ -79,14 +79,8 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-
-const config = {
-    username: process.env.DB_USERNAME, 
-    password: process.env.DB_PASSWORD, 
-    database: process.env.DB_NAME, 
-    host: process.env.DB_HOST, 
-    dialect: "mysql"
-};
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
 
 const db = {};
 
@@ -236,7 +230,7 @@ This file defines a User model with two fields: `username` and `email`, both of 
 
 **Set up the Express app:**
 
-**`app.js`**
+**`index.js`**
 ```javascript
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -250,11 +244,15 @@ app.use(bodyParser.json());
 app.use('/users', userRoutes);
 
 // Sync database and start server
-db.sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+db.sequelize.sync()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
   });
-});
 ```
 
 - `express()`: Initializes an Express application.
@@ -271,10 +269,17 @@ db.sequelize.sync().then(() => {
     docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=myuser -e MYSQL_PASSWORD=mypassword -e MYSQL_DATABASE=my_db -p 3306:3306 -d mysql:latest
     ```
 
+1. **Set the `script` in `package.json`:
+    ```json
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    ```
+
 1. **Start the application:**
 
     ```bash
-    node app.js
+   npm start
     ```
 
 This starts your Express server, and the REST API is available at `http://localhost:5000`. You can now use tools like Postman or curl to test the following endpoints:
