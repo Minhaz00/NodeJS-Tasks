@@ -269,7 +269,7 @@ db.sequelize.sync()
     docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=myuser -e MYSQL_PASSWORD=mypassword -e MYSQL_DATABASE=my_db -p 3306:3306 -d mysql:latest
     ```
 
-1. **Set the `script` in `package.json`:
+1. **Set the `script` in `package.json`:**
     ```json
     "scripts": {
         "start": "nodemon index.js"
