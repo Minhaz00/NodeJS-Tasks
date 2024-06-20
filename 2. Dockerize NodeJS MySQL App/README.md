@@ -1,7 +1,12 @@
 # Dockerizing NodeJS-MySQL RestAPI Application
 
-This documentation provides a comprehensive guide to setting up a Node.js REST API application using Express.js, Sequelize ORM, and MySQL database. 
-We will go through the process of dockerizing a Node.js-MySQL REST API application. We cover creating a `Dockerfile` and `docker-compose.yml`, setting up and running the Node.js app and MySQL database in Docker containers. This guide helps you achieve efficient and scalable application deployment.
+This documentation provides a comprehensive guide to setting up a Node.js REST API application using Express.js, Sequelize ORM, and MySQL database.
+
+![alt text](image-1.png)
+
+We will go through the process of dockerizing a Node.js-MySQL REST API application. We cover creating a `Dockerfile` and `docker-compose.yml`, setting up and running the Node.js app and MySQL database in Docker containers. 
+
+![alt text](image.png)
 
 ## Prerequisites
 - Docker and Docker Compose installed on your machine.

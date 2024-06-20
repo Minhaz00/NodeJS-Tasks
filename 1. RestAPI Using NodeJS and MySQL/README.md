@@ -1,5 +1,7 @@
 This is a documentation for a Rest API application, a robust and scalable RESTful API built with Node.js, Express.js, Sequelize ORM, and MySQL. This application serves as a foundational template for creating and managing users within a system, offering comprehensive CRUD (Create, Read, Update, Delete) operations.
 
+![alt text](image.png)
+
 Let't setup the application step by step:
 
 ## Step 1: Set Up the Project

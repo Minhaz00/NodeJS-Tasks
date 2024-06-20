@@ -4,6 +4,8 @@
 
 This document provides a step-by-step guide for deploying a Node.js application that uses a MySQL database on a Kubernetes cluster. It utilizes Kubernetes secrets for managing sensitive information and Persistent Volumes (PVs) for data storage. The deployment involves creating necessary Kubernetes resources such as PersistentVolumes, PersistentVolumeClaims, Secrets, Deployments, and Services.
 
+![alt text](image.png)
+
 Below are the steps with explanation:
 
 ## 1. PersistentVolume and PersistentVolumeClaim for MySQL

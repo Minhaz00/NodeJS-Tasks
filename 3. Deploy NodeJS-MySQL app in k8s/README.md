@@ -2,6 +2,8 @@
 
 Running your Node.js and MySQL application on Kubernetes involves several steps, including creating Kubernetes manifests for your deployments, services, and configuring environment variables. Below is a detailed solution to deploy your application on Kubernetes.
 
+![alt text](image.png)
+
 ## Prerequisites
 
 1. A running Kubernetes cluster.
