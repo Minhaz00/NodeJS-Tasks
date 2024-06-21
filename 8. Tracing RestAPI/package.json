@@ -1,0 +1,24 @@
+{
+  "name": "6.-tracing-restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.47.1",
+    "@opentelemetry/instrumentation-express": "^0.40.1",
+    "@opentelemetry/instrumentation-http": "^0.52.1",
+    "@opentelemetry/sdk-node": "^0.52.1",
+    "express": "^4.19.2",
+    "mysql2": "^3.10.1",
+    "opentelemetry-instrumentation-sequelize": "^0.41.0",
+    "redis": "^4.6.14",
+    "sequelize": "^6.37.3"
+  }
+}
