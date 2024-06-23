@@ -527,17 +527,17 @@ Now go to **`Menu`** > **`Explore`**. Here let's try to trace the `MySQL` and `R
 
 We have added the trace tables of a particular query in a different dashboard:
 
-![alt text](image.png)
+![alt text](./images/image.png)
 
 If we click on any of the TraceID, we will see the trace information in details:
 
 Here is one example for a redis query trace:
 
-![alt text](image-1.png)
+![alt text](./images/image-1.png)
 
 Here is another example for a MySQL query trace:
 
-![alt text](image-2.png)
+![alt text](./images/image-2.png)
 
 ## Summary
 We have now set up a Node.js application with distributed tracing using OpenTelemetry and Grafana Tempo. The traces collected from our application are sent to the OpenTelemetry Collector, which then forwards them to Grafana Tempo for storage and visualization. By following these steps, we can monitor and analyze the performance and behavior of our distributed system.
