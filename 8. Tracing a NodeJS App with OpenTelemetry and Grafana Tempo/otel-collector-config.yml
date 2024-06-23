@@ -10,7 +10,6 @@ exporters:
   logging:
   otlp:
     endpoint: tempo:4317
-    # endpoint: :4317
     tls:
       insecure: true
   debug:
@@ -26,6 +25,7 @@ service:
     metrics:
       receivers: [otlp]
       exporters: [debug]
+      
     logs:
       receivers: [otlp]
       exporters: [debug]

@@ -453,7 +453,7 @@ This command will start all the nodejs services at `htttp://localhost:5000`.
 
 Once the application is running, access Grafana at `http://localhost:3000` and log in with the default credentials (`admin`/`admin`).
 
-**Configure Data Source in Grafana:**
+### Configure Data Source in Grafana
 
 1. Navigate to **Configuration** > **Data Sources**.
 2. Click on **Add data source**.
@@ -461,13 +461,44 @@ Once the application is running, access Grafana at `http://localhost:3000` and l
 4. Configure the URL as `http://tempo:3100`.
 5. Click **Save & Test** to ensure the connection is working.
 
-**Create Dashboards and Panels:**
+### Create Dashboards and Panels
 
 1. Navigate to **Create** > **Dashboard**.
 2. Add a new panel and configure it to visualize traces.
 3. Use the data source you just configured (Tempo) to query and display trace data.
 
-Here are some panels I have created:
+### Trying different queries
+
+wehave tried some different queries regarding http `methods` and `status code`. wehave also made some panels in dashboard. 
+
+Here are the TraceQL queries:
+
+1. TraceQL query for Successful HTTP requests (`2xx` status codes):
+
+    ```sql
+    { span.http.status_code >= 200 && span.http.status_code < 300 }
+    ```
+
+2. TraceQL for client error HTTP requests (`4xx` status codes):
+
+    ```sql
+    { span.http.status_code >= 400 && span.http.status_code <500 }
+    ```
+
+3. TraceQL query for HTTP `GET` requests:
+
+    ```sql
+    { span.http.method = "GET" }
+    ```
+
+4. TraceQL query for HTTP `POST` requests:
+
+    ```sql
+    { span.http.method = "POST" }
+    ```
+
+
+We have some panels here in our dashboard created from these queries:
 
 ![alt text](<./images/img1.jpg>)
 
@@ -477,5 +508,36 @@ The image shows a Grafana dashboard with multiple panels, each displaying metric
 - HTTP GET requests.
 - HTTP POST requests.
 
+
+### Displaying Trace data
+
+Now go to **`Menu`** > **`Explore`**. Here let's try to trace the `MySQL` and `Redis` from our server using some query.
+
+1. TraceQL query for Redis query data:
+
+    ```
+    { span.db.system = "redis" }
+    ```
+
+2. TraceQL query for MySQL query data:
+
+    ```
+    { span.db.system = "mysql" }
+    ```
+
+We have added the trace tables of a particular query in a different dashboard:
+
+![alt text](image.png)
+
+If we click on any of the TraceID, we will see the trace information in details:
+
+Here is one example for a redis query trace:
+
+![alt text](image-1.png)
+
+Here is another example for a MySQL query trace:
+
+![alt text](image-2.png)
+
 ## Summary
-You have now set up a Node.js application with distributed tracing using OpenTelemetry and Grafana Tempo. The traces collected from your application are sent to the OpenTelemetry Collector, which then forwards them to Grafana Tempo for storage and visualization. By following these steps, you can monitor and analyze the performance and behavior of your distributed system.
+We have now set up a Node.js application with distributed tracing using OpenTelemetry and Grafana Tempo. The traces collected from our application are sent to the OpenTelemetry Collector, which then forwards them to Grafana Tempo for storage and visualization. By following these steps, we can monitor and analyze the performance and behavior of our distributed system.
