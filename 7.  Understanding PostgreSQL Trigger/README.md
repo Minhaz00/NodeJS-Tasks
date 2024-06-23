@@ -6,6 +6,8 @@ A PostgreSQL trigger is a mechanism that automatically initiates a predefined ac
 
 In an application, we have a database that manages students and their grades for different courses. We want to implement a trigger that automatically updates a student's GPA whenever a new grade is inserted or an existing grade is updated.
 
+![alt text](image.png)
+
 ## Database Schema
 We'll have two tables: `students` and `grades`.
 
