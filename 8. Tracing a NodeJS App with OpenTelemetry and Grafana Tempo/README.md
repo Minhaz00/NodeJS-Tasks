@@ -1,4 +1,4 @@
-# Distributed Tracing with OpenTelemetry and Grafana Tempo in a NodeJS App
+# Tracing with OpenTelemetry and Grafana Tempo in a NodeJS-Redis-MySQL App
 
 Tracing is a method to monitor and track requests as they traverse through various services and systems. This guide will help you set up distributed tracing in a Node.js application using OpenTelemetry and Grafana Tempo. 
 
