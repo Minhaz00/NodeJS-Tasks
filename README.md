@@ -21,4 +21,4 @@
 - [Layer 4 Load Balancing NodeJS servers with NGINX](https://github.com/Minhaz00/NodeJS-MySQL/tree/main/9.%20Load%20Balancing%20Node.js%20Application%20Servers)
 
 
-- [Deploy Nginx Layer 4 Load Balancer in AWS]()
+- [Deploy Nginx Layer 4 Load Balancer in AWS](https://github.com/Minhaz00/NodeJS-MySQL/tree/main/10.%20Deploy%20on%20AWS-nginx%20layer%204%20lb)
