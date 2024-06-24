@@ -18,4 +18,4 @@
 
 - [Tracing a NodeJS App with OpenTelemetry and Grafana Tempo](https://github.com/Minhaz00/NodeJS-MySQL/tree/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo)
 
-- [Layer 4 Load Balancing NodeJS servers with NGINX]()
+- [Layer 4 Load Balancing NodeJS servers with NGINX](https://github.com/Minhaz00/NodeJS-MySQL/tree/main/9.%20Load%20Balancing%20Node.js%20Application%20Servers)
