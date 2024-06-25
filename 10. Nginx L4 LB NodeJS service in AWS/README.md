@@ -22,7 +22,7 @@ At first, we need to create a VPC in AWS, configure subnet, route tables and gat
 
 Here is the `resource-map` of our VPC:
 
-![alt text](./image/image.jpg)
+<img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image.jpg?raw=true" />
 
 ### Create EC2 instance
 
@@ -36,13 +36,11 @@ We need to create `3 instances` in EC2.
 
 #### Create the NGINX EC2 Instance:
 - Launch another EC2 instance for the NGINX load balancer (let's call it `nginx-lb`) in our public subnet.
-- Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the Flask servers.
+- Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the NodeJS servers.
 - Assign a key pair for SSH access.
 
 
-### Create endpoint
-
-- Create an endpoint `my-EP` to connect to the node app instances as they are in private subnet.
+You need to SSH in the public instance to connect.
 
 ## Set up Node.js Applications
 
@@ -174,9 +172,9 @@ This command starts the Nginx container with our custom configuration.
 
     Example:
 
-    ![alt text](./image/image2.jpg)
+    <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image2.jpg?raw=true" />
    
-    ![alt text](./image/image1.jpg)
+    <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image1.jpg?raw=true" />
 
 ## Conclusion
 

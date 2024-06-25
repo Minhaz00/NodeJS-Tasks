@@ -4,7 +4,7 @@
 
 This document outlines the process of setting up a layer 4 load-balanced Node.js application environment using Nginx. The setup consists of two identical Node.js applications, an Nginx server for load balancing. We will use mysql database for this app. Here we will deploy it in AWS.
 
-![alt text](./images/nginx-01.PNG)
+<img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/11.%20Nginx%20L4%20LB%20NodeJS-MySQL%20App%20in%20AWS/images/nginx-01.PNG?raw=true" />
 
 ## Task
 Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, and a MySQL database, all running in AWS EC2 instance.
@@ -24,7 +24,7 @@ At first, we need to create a VPC in AWS, configure subnet, route tables and gat
 
 Here is the `resource-map` of our VPC:
 
-![alt text](./images/image.png)
+<img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image.jpg?raw=true" />
 
 ### Create EC2 instance
 
@@ -38,16 +38,16 @@ We need to create `3 instances` in EC2.
 
 #### Create the NGINX EC2 Instance:
 - Launch another EC2 instance for the NGINX load balancer (let's call it `nginx-lb`) in our public subnet.
-- Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the Flask servers.
+- Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the NodeJS servers.
 - Assign a key pair for SSH access.
 
 #### Create the mysql EC2 Instance:
 - Launch another EC2 instance for the MySQL Database (let's call it `mysql`).
 
 
-### Create endpoint
+You need to SSH in the public instance to connect.
 
-- Create an endpoint `my-EP` to connect to the node app instances as they are in private subnet.
+
 
 
 ## Set up MySQL
@@ -308,9 +308,9 @@ This command starts the Nginx container with our custom configuration.
 
     Example:
 
-    ![alt text](<./images/Screenshot 2024-06-25 160401.png>)
+    <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/11.%20Nginx%20L4%20LB%20NodeJS-MySQL%20App%20in%20AWS/images/app1.png?raw=true" />
 
-    ![alt text](<./images/Screenshot 2024-06-25 160459.png>)
+    <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/11.%20Nginx%20L4%20LB%20NodeJS-MySQL%20App%20in%20AWS/images/app2.png?raw=true" />
    
 ## Conclusion
 
