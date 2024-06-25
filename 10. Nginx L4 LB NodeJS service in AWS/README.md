@@ -2,7 +2,8 @@
 
 This document outlines the process of setting up a layer 4 load-balanced Node.js application environment using Nginx. The setup consists of two identical Node.js applications, an Nginx server for load balancing. Here we will deploy it in AWS.
 
-![alt text](./image/nginxlb-02.PNG)
+
+<img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/nginxlb-02.PNG?raw=true" />
 
 ## Task
 Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, and a MySQL database, all running in AWS EC2 instance.
@@ -40,7 +41,49 @@ We need to create `3 instances` in EC2.
 - Assign a key pair for SSH access.
 
 
-You need to SSH in the public instance to connect.
+### Access the Public Instance via SSH
+
+1. *Set File Permissions*:
+   - *For Windows*: Open PowerShell and navigate to the directory where MyKeyPair.pem is located. Then, use the following command to set the correct permissions:
+     ```powershell
+     icacls MyKeyPair.pem /inheritance:r
+     icacls MyKeyPair.pem /grant:r "$($env:USERNAME):(R)"
+     ```
+
+   - *For Linux*:
+     ```sh
+     chmod 400 MyKeyPair.pem
+     ```
+
+
+2. *SSH into the Public Instance*:
+   - Open a terminal and run:
+     ```sh
+     ssh -i MyKeyPair.pem ubuntu@<public_instance_ip>
+     ```
+   - Replace <public_instance_ip> with the public IP address of the public instance.
+
+### Copy the Key Pair to the Public Instance
+
+3. *Copy the Key Pair to the Public Instance*:
+   - On your local machine, run the following command to copy the key pair to the public instance:
+     ```sh
+     scp -i MyKeyPair.pem MyKeyPair.pem ubuntu@<public_instance_ip>:~
+     ```
+   - Replace <public_instance_ip> with the public IP address of the public instance.
+
+### SSH from the Public Instance to the Private Instance
+
+3. *SSH into the Private Instance from the Public Instance*:
+   - On the public instance, change the permissions of the copied key pair:
+     ```sh
+     chmod 400 MyKeyPair.pem
+     ```
+   - Then, SSH into the private instance:
+     ```sh
+     ssh -i MyKeyPair.pem ubuntu@<private_instance_ip>
+     ```
+   - Replace <private_instance_ip> with the private IP address of the private instance.
 
 ## Set up Node.js Applications
 
