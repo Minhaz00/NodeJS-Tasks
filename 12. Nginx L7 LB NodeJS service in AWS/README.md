@@ -2,7 +2,7 @@
 
 This document outlines the process of setting up a layer 7 load-balanced Node.js application environment using Nginx. The setup consists of two identical Node.js applications, an Nginx server for load balancing. Here we will deploy it in AWS.
 
-![alt text](../images/nginxlb-02.PNG)
+<img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/nginxlb-02.PNG?raw=true" />
 
 ## Task
 Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, and a MySQL database, all running in AWS EC2 instance.
@@ -22,7 +22,7 @@ At first, we need to create a VPC in AWS, configure subnet, route tables and gat
 
 Here is the `resource-map` of our VPC:
 
-![alt text](../images/res-map.jpg)
+<img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image.jpg?raw=true" />
 
 ### Create EC2 instance
 
@@ -192,8 +192,9 @@ We need to create `3 instances` in EC2.
    ```http
    http://<load-balancer-public-ip>
    ```
-   ![](../images/1.png)
-   ![](../images/2.png)
+   <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image2.jpg?raw=true" />
+   
+    <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/image1.jpg?raw=true" />
 
 
 By following these steps, you set up a Layer-7 load balancer using NGINX to distribute traffic between two Node.js applications running on different instances. This ensures that the load is balanced and provides high availability for your applications.

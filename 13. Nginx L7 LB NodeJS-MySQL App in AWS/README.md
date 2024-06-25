@@ -294,7 +294,7 @@ We need to create `3 instances` in EC2.
 
 8. **Set the port environment variable and start the application:**
    ```bash
-   export PORT=3001  # or 3002 for the second instance
+   export PORT=5001  # or 5002 for the second instance
    node index.js
    ```
 
@@ -304,7 +304,8 @@ We need to create `3 instances` in EC2.
    ```http
    http://<load-balancer-public-ip>
    ```
-   ![](./images/3.jpeg)
-   ![](./images/4.jpeg)
+   <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/11.%20Nginx%20L4%20LB%20NodeJS-MySQL%20App%20in%20AWS/images/app1.png?raw=true" />
+
+    <img src="https://github.com/Minhaz00/NodeJS-MySQL/blob/main/11.%20Nginx%20L4%20LB%20NodeJS-MySQL%20App%20in%20AWS/images/app2.png?raw=true" />
 
 By following these steps, you set up a Layer-7 load balancer using NGINX to distribute traffic between two Node.js applications running on different instances and connect these applications to a MySQL database running in a Docker container. This ensures that the load is balanced and provides high availability for your applications.
