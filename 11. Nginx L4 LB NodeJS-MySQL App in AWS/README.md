@@ -1,9 +1,10 @@
 
-# Deploy Nginx Layer 4 Load Balancing on Node.js servers in AWS
 
-This document outlines the process of setting up a layer 4 load-balanced Node.js application environment using Nginx. Here we will be using MySQL as the database. The setup consists of two identical Node.js applications, an Nginx server for load balancing, and a MySQL database container. Here we will deploy it in AWS.
+# Nginx Layer 4 Load Balancing on NodeJS-MySQL App in AWS
 
-![alt text](./images/aws.jpg)
+This document outlines the process of setting up a layer 4 load-balanced Node.js application environment using Nginx. The setup consists of two identical Node.js applications, an Nginx server for load balancing. We will use mysql database for this app. Here we will deploy it in AWS.
+
+![alt text](./images/nginx-01.PNG)
 
 ## Task
 Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, and a MySQL database, all running in AWS EC2 instance.
@@ -11,39 +12,42 @@ Create a load-balanced environment with two Node.js applications, Nginx as a loa
 
 ## Setup in AWS
 
+### Create VPC, subnets, route table and gateways 
+
 At first, we need to create a VPC in AWS, configure subnet, route tables and gateway.
 
-### Create VPC
+- At first, we have created a VPC named `my-vpc`.
+
+- Then, we have created 2 subnets: `public-subnet` and `private-subnet` in `my-vpc`.
+
+- Creat necessary internet gateway, NAT gateways and route tables.
+
+Here is the `resource-map` of our VPC:
 
 ![alt text](./images/image.png)
 
-### Create Subnet
-
-![alt text](./images/subnet.png)
-
-Creat necessary internet gateway and route tables.
-
 ### Create EC2 instance
 
-We need to create `4 instances` in EC2. 
+We need to create `3 instances` in EC2. 
 
 #### Create the NodeJS App EC2 Instances:
-- Launch two EC2 instances (let's call them `node-app-1` and `node-app-2`).
+- Launch two EC2 instances (let's call them `node-app-1` and `node-app-2`) in our private subnet.
 - Choose an appropriate AMI (e.g., Ubuntu).
 - Configure the instances with necessary security group rules to allow HTTP/HTTPS traffic (typically port 80/443).
 - Assign a key pair for SSH access.
 
 #### Create the NGINX EC2 Instance:
-- Launch another EC2 instance for the NGINX load balancer (let's call it `nginx-lb`).
-
+- Launch another EC2 instance for the NGINX load balancer (let's call it `nginx-lb`) in our public subnet.
 - Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the Flask servers.
-
 - Assign a key pair for SSH access.
 
 #### Create the mysql EC2 Instance:
 - Launch another EC2 instance for the MySQL Database (let's call it `mysql`).
 
-![alt text](./images/instances.png)
+
+### Create endpoint
+
+- Create an endpoint `my-EP` to connect to the node app instances as they are in private subnet.
 
 
 ## Set up MySQL
@@ -57,6 +61,7 @@ docker run --name my_mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=my_db -
 This command creates and runs a MySQL database container with specified database, user, and password and volume mounting for persistent storage, accessible externally on port 3306.
 
 You need to set inbound security-group to give access on port `3306`.
+
 
 
 ## Set up Node.js Applications
@@ -73,8 +78,8 @@ sudo apt install npm
 
 Then, 
 ```bash
-mkdir Node-app-1
-cd Node-app-1
+mkdir Node-app
+cd Node-app
 npm init -y
 npm install express mysql2 body-parser
 ```
@@ -87,10 +92,10 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 const dbConfig = {
-  host: <mysql-public-ip>,
+  host: "<mysql-instance-private-ip>",
   user: 'my_user',
   password: 'my_password',
   database: 'my_db'
@@ -139,12 +144,13 @@ app.get('/', (req, res) => {
   
   const connection = createConnection();
   if (connection) {
-    res.status(200).json({ message: "Hello, from Node App 1! Connected to MySQL database." });
+    res.status(200).json({ message: `Hello, from Node App on PORT: ${port} ! Connected to MySQL database.` });
     connection.end();
   } else {
     res.status(500).json({ message: 'Failed to connect to MySQL database' });
   }
 });
+
 
 // GET route to fetch all users
 app.get('/users', (req, res) => {
@@ -186,24 +192,27 @@ app.post('/users', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`App running on http://localhost:${port}`);
+  console.log(`App running on port :${port}`);
 });
+
 ```
 
-Here set the host to the public ip of mysql instance.
+Replace `<mysql-instance-private-ip>` with your mysql instance private ip.
 
 ### Create Node App 2
 
-Here do the similar steps as `Node-app-1`. Set the port to `3002` and host to public ip of mysql instance.
+Connect to the `Node-app-2` instance. 
+Here, do the similar steps as `Node-app-1`.
  
 
 ### Start Node.js Applications
 Navigate to each Node.js application directory and run:
 ```bash
+export PORT=5001
 node index.js
 ```
 
-Do the same for both nodejs app instances. Make sure they are running and connected to the database properly.
+Do the same for both nodejs app instances. Make sure they are running and connected to the database properly. Note that, you need to set the `PORT=5002` in `Node-app-2` instance.
 
 
 ## Set up Nginx
@@ -223,8 +232,8 @@ events {}
 
 stream {
     upstream nodejs_backend {
-        server <Node-app-1 public-ip>:3001; # Node-app-1
-        server <Node-app-2 public-ip>:3002; # Node-app-2
+        server <Node-app-1 private-ip>:3001; # Node-app-1
+        server <Node-app-2 private-ip>:3002; # Node-app-2
     }
 
     server {
@@ -275,6 +284,7 @@ docker run -d -p 80:80 --name my_nginx custom-nginx
 
 This command starts the Nginx container with our custom configuration.
 
+
 ## Verification
 
 1. Visit `http://<nginx-public-ip>` in a web browser. You should see a response from one of the Node.js applications.
@@ -294,14 +304,14 @@ This command starts the Nginx container with our custom configuration.
     I am using `Postman` for `POST` method. After adding the user, let's try to see the user using `GET` request: `http://<nginx-public-ip>/users`
 
 
-3. Refresh the browser or make multiple requests to observe the load balancing in action. You should see responses alternating between `"Hello, from Node App 1!"` and `"Hello, from Node App 2!"`.
+3. Refresh the browser or make multiple requests to observe the load balancing in action. You should see responses alternating between Node-app-1 and Node-app-2 running on different ports.
 
     Example:
 
-   ![alt text](./images/app1.png)
+    ![alt text](<./images/Screenshot 2024-06-25 160401.png>)
 
-    ![alt text](./images/app2.png)
-
+    ![alt text](<./images/Screenshot 2024-06-25 160459.png>)
+   
 ## Conclusion
 
 By configuring Nginx with the stream module as described, you have effectively set up Nginx as a `Layer 4 load balancer`. It handles TCP connections based on IP addresses and port numbers, making routing decisions at the transport layer without inspecting higher-layer protocols like HTTP. This setup is suitable for scenarios where efficient TCP load balancing across multiple backend services is required.
