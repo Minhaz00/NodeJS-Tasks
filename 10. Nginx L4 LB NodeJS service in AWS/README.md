@@ -63,7 +63,7 @@ We need to create `3 instances` in EC2.
      ```
    - Replace <public_instance_ip> with the public IP address of the public instance.
 
-### Copy the Key Pair to the Public Instance
+#### Copy the Key Pair to the Public Instance
 
 3. *Copy the Key Pair to the Public Instance*:
    - On your local machine, run the following command to copy the key pair to the public instance:
@@ -72,7 +72,7 @@ We need to create `3 instances` in EC2.
      ```
    - Replace <public_instance_ip> with the public IP address of the public instance.
 
-### SSH from the Public Instance to the Private Instance
+#### SSH from the Public Instance to the Private Instance
 
 3. *SSH into the Private Instance from the Public Instance*:
    - On the public instance, change the permissions of the copied key pair:
