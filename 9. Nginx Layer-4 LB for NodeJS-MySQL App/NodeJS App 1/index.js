@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 const dbConfig = {
   host: 'localhost',
@@ -55,10 +55,10 @@ app.get('/', (req, res) => {
   
   const connection = createConnection();
   if (connection) {
-    res.status(200).json({ message: "Hello, from Node App 1! Connected to MySQL database." });
+    res.status(200).send(`Hello, from Node App at port ${port}! Connected to MySQL database.`);
     connection.end();
   } else {
-    res.status(500).json({ message: 'Failed to connect to MySQL database' });
+    res.status(500).send('Failed to connect to MySQL database');
   }
 });
 
