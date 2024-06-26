@@ -115,7 +115,10 @@ In this guide, we'll walk you through the process of setting up automatic deploy
         ```
         PORT = 5000
         ```
+    
+        Save the secret.
 
+        ![alt text](./images/image-16.png)
 
 
 ## Setup CI/CD Pipeline with GitHub Actions
