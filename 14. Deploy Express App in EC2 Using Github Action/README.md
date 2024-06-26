@@ -78,34 +78,35 @@ In this guide, we'll walk you through the process of setting up automatic deploy
 
 ## Setup GitHub Actions Runner on EC2
 
-- **Setup GitHub Actions**:
-   - Go to your repository’s settings on GitHub.
-   - Under “Actions”, click “Runners” and add a new self-hosted runner for Linux.
+### Setup GitHub Actions:
 
-        ![alt text](./images/image-4.png)
+- Go to your repository’s settings on GitHub.
+- Under “Actions”, click “Runners” and add a new self-hosted runner for Linux.
 
-   - Follow the commands provided to set up the runner on your EC2 instance.
+    ![alt text](./images/image-4.png)
 
-        ![alt text](./images/image-5.png)
+- Follow the commands provided to set up the runner on your EC2 instance.
 
-        You will get something like this after the final command (marked portion):
+    ![alt text](./images/image-5.png)
 
-        ![alt text](./images/image-6.png)
+    You will get something like this after the final command (marked portion):
 
-        After that, keep hitting `Enter` to continue with the default settings. Now if you go to the **github repository** > **settings** > **runners**, you will get something like this:
+    ![alt text](./images/image-6.png)
 
-        ![alt text](./images/image-7.png)
+    After that, keep hitting `Enter` to continue with the default settings. Now if you go to the **github repository** > **settings** > **runners**, you will get something like this:
 
-        It is in offline state. Go to the SSH PowerShell and use the following command:
+    ![alt text](./images/image-7.png)
 
-        ```bash
-        sudo ./svc.sh install
-        sudo ./svc.sh start
-        ```
+    It is in offline state. Go to the SSH PowerShell and use the following command:
 
-        Now the runner in the github repository is no more in Offline state:
+    ```bash
+    sudo ./svc.sh install
+    sudo ./svc.sh start
+    ```
 
-        ![alt text](./images/image-8.png)
+    Now the runner in the github repository is no more in Offline state:
+
+    ![alt text](./images/image-8.png)
 
 
 ## Create GitHub Secrets
