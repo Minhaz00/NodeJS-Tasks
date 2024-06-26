@@ -1,4 +1,4 @@
-## Auto-Deploy Node.js App on AWS EC2 with CI/CD Pipeline using GitHub Actions
+# Auto-Deploy Node.js App on AWS EC2 with CI/CD Pipeline using GitHub Actions
 In this guide, we'll walk you through the process of setting up automatic deployment for a Node.js REST API on an AWS EC2 instance using a CI/CD pipeline with GitHub Actions. You'll learn how to configure your EC2 instance, set up your GitHub repository, and create workflows that ensure your app is deployed seamlessly whenever you push changes to your main branch. Let's get started!
 
 ## Prerequisites
