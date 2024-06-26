@@ -279,7 +279,7 @@ Now go to `_work` folder. In this folder you will see your Nodejs app directory 
     ├────┼──────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
     │ 0  │ index    │ default     │ 1.0.0   │ fork    │ 8843     │ 0s     │ 0    │ online    │ 0%       │ 39.0mb   │ ubuntu   │ disabled │
     └────┴──────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
-    u
+    
     ```
     Note that the process name is `index` which can be different in your case.
 
