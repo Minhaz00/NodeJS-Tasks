@@ -1,7 +1,7 @@
 # Auto-Deploy Node.js App on AWS EC2 with CI/CD Pipeline using GitHub Actions
 In this guide, we'll walk you through the process of setting up automatic deployment for a Node.js REST API on an AWS EC2 instance using a CI/CD pipeline with GitHub Actions. You'll learn how to configure your EC2 instance, set up your GitHub repository, and create workflows that ensure your app is deployed seamlessly whenever you push changes to your main branch. Let's get started!
 
-![alt text](./images/image-17.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-17.png?raw=true)
 
 ## Prerequisites
 1. **AWS Account**: Ensure you have an AWS account and proper permissions to create and manage EC2 instances.
@@ -56,18 +56,18 @@ In this guide, we'll walk you through the process of setting up automatic deploy
    - Choose "Ubuntu" as the operating system.
    - Ensure it's a free-tier eligible instance type.
 
-        ![alt text](./images/image.png)
+        ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image.png?raw=true)
 
    - Create a new key pair or use an existing one.
 
-        ![alt text](./images/image-1.png)
+        ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-1.png?raw=true)
 
 3. **Configure Security Group**:
     - Go to security group > select the one for our instance > Edit inbound rules.
     - Allow SSH (port 22) from your IP.
     - Allow HTTP (port 80) from anywhere.
 
-        ![alt text](./images/image-2.png)
+        ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-2.png?raw=true)
 
 ## Connect to EC2 Instance
 1. **SSH into EC2 Instance**:
@@ -75,7 +75,7 @@ In this guide, we'll walk you through the process of setting up automatic deploy
     - Open terminal and navigate to the directory with your PEM file.
     - Use the SSH command provided by AWS to connect. We used windows powershell to SSH into EC2 Instance.
 
-        ![alt text](./images/image-3.png)
+        ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-3.png?raw=true)
 
 
 ## Setup GitHub Actions Runner on EC2
@@ -85,19 +85,19 @@ In this guide, we'll walk you through the process of setting up automatic deploy
 - Go to your repository’s settings on GitHub.
 - Under “Actions”, click “Runners” and add a new self-hosted runner for Linux.
 
-    ![alt text](./images/image-4.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-4.png?raw=true)
 
 - Follow the commands provided to set up the runner on your EC2 instance.
 
-    ![alt text](./images/image-5.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-5.png?raw=true)
 
     You will get something like this after the final command (marked portion):
 
-    ![alt text](./images/image-6.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-6.png?raw=true)
 
     After that, keep hitting `Enter` to continue with the default settings. Now if you go to the **github repository** > **settings** > **runners**, you will get something like this:
 
-    ![alt text](./images/image-7.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-7.png?raw=true)
 
     It is in offline state. Go to the SSH PowerShell and use the following command:
 
@@ -108,7 +108,7 @@ In this guide, we'll walk you through the process of setting up automatic deploy
 
     Now the runner in the github repository is no more in Offline state:
 
-    ![alt text](./images/image-8.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-8.png?raw=true)
 
 
 ## Create GitHub Secrets
@@ -121,7 +121,7 @@ In this guide, we'll walk you through the process of setting up automatic deploy
     
         Save the secret.
 
-        ![alt text](./images/image-16.png)
+        ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-16.png?raw=true)
 
 
 ## Setup CI/CD Pipeline with GitHub Actions
@@ -130,7 +130,7 @@ In this guide, we'll walk you through the process of setting up automatic deploy
    - In your repository, go to the “Actions” tab.
    - Choose the Node.js workflow template.
 
-        ![alt text](./images/image-9.png)
+        ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-9.png?raw=true)
 
    - Configure/Change it as follows:
 
@@ -171,7 +171,7 @@ In this guide, we'll walk you through the process of setting up automatic deploy
 1. **Push Changes to GitHub**: Commit and push changes to your GitHub repository.
 2. **Check GitHub Actions**: Ensure the workflow runs successfully and deploys the updated code to your EC2 instance.
 
-    ![alt text](./images/image-10.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-10.png?raw=true)
 
     If you go to the SSH terminal, you can see `_work` directory. Now go to `_work` folder. In this folder you will see your Nodejs app directory from github. Therefore code updated to your EC2 instance.
 
@@ -202,7 +202,7 @@ Now go to `_work` folder. In this folder you will see your Nodejs app directory 
 
    If you visit `http://<ec2-instance-public-ip>` you will see:
 
-    ![alt text](./images/image-11.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-11.png?raw=true)
 
 4. **Install pm2**:
     ```bash
@@ -255,7 +255,7 @@ Now go to `_work` folder. In this folder you will see your Nodejs app directory 
 
     If you visit `http://<ec2-instance-public-ip>` you will see:
 
-    ![alt text](./images/image-13.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-13.png?raw=true)
 
     It gives error because our nodejs app  in ec2 is not running. 
 
@@ -285,7 +285,7 @@ Now go to `_work` folder. In this folder you will see your Nodejs app directory 
 
     Now, if you visit `http://<ec2-instance-public-ip>` you will see:
 
-    ![alt text](./images/image-12.png)
+    ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-12.png?raw=true)
 
     Our App has been successfully deployed to AWS and Nginx is serving our nodejs app properly.
 
@@ -367,11 +367,11 @@ git push
 
 Now if we go to the github action tab we will see new workflow triggered by our new commit with same name as our commit message.
 
-![alt text](./images/image-14.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-14.png?raw=true)
 
 Now, if you visit `http://<ec2-instance-public-ip>/users` you will see:
 
-![alt text](./images/image-15.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/14.%20Deploy%20Express%20App%20in%20EC2%20Using%20Github%C2%A0Action/images/image-15.png?raw=true)
 
 So the new endpoint has been automatically added to our AWS deployment.
 
