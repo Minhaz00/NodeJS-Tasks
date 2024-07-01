@@ -480,7 +480,7 @@ This command will build and start all services defined in the `docker-compose.ym
 To start the Node.js server separately, use:
 
 ```bash
-npm start
+node index
 ```
 
 This command will start all the nodejs services at `htttp://localhost:5000`.
