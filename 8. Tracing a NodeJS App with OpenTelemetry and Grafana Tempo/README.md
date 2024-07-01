@@ -500,7 +500,7 @@ Here are the TraceQL queries:
 
 We have some panels here in our dashboard created from these queries:
 
-![alt text](<./images/img1.jpg>)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo/images/img1.jpg?raw=true)
 
 The image shows a Grafana dashboard with multiple panels, each displaying metrics related to HTTP requests.
 - Successful HTTP requests (2xx status codes).
@@ -527,17 +527,17 @@ Now go to **`Menu`** > **`Explore`**. Here let's try to trace the `MySQL` and `R
 
 We have added the trace tables of a particular query in a different dashboard:
 
-![alt text](./images/image.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo/images/image.png?raw=true)
 
 If we click on any of the TraceID, we will see the trace information in details:
 
 Here is one example for a redis query trace:
 
-![alt text](./images/image-1.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo/images/image-1.png?raw=true)
 
 Here is another example for a MySQL query trace:
 
-![alt text](./images/image-2.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo/images/image-2.png?raw=true)
 
 ## Summary
 We have now set up a Node.js application with distributed tracing using OpenTelemetry and Grafana Tempo. The traces collected from our application are sent to the OpenTelemetry Collector, which then forwards them to Grafana Tempo for storage and visualization. By following these steps, we can monitor and analyze the performance and behavior of our distributed system.
