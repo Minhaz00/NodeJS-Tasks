@@ -231,7 +231,8 @@ Save the above manifests into YAML files, then apply them in the following order
 
 1. **PersistentVolume and PersistentVolumeClaim**:
    ```sh
-   kubectl apply -f mysql-pv-pvc.yaml
+   kubectl apply -f mysql-pv.yaml
+   kubectl apply -f mysql-pvc.yaml
    ```
 
 2. **Secrets**:
@@ -243,11 +244,13 @@ Save the above manifests into YAML files, then apply them in the following order
 3. **MySQL Deployment and Service**:
    ```sh
    kubectl apply -f mysql-deployment.yaml
+   kubectl apply -f mysql-service.yaml
    ```
 
 4. **Node.js App Deployment and Service**:
    ```sh
    kubectl apply -f nodejs-app-deployment.yaml
+   kubectl apply -f nodejs-app-service.yaml
    ```
 
 
