@@ -2,6 +2,9 @@
 
 Tracing is a method to monitor and track requests as they traverse through various services and systems. This guide will help you set up distributed tracing in a Node.js application using OpenTelemetry and Grafana Tempo. 
 
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo/images/image-3.jpg?raw=true)
+
+
 ## Prerequisites
 - Docker and Docker Compose installed on your system.
 - Basic knowledge of Node.js, Express.js, and SQL/NoSQL databases.
