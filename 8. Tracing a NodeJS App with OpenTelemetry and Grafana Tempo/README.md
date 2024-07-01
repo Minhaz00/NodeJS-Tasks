@@ -5,6 +5,39 @@ Tracing is a method to monitor and track requests as they traverse through vario
 ![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/8.%20Tracing%20a%20NodeJS%20App%20with%20OpenTelemetry%20and%20Grafana%20Tempo/images/image-3.png?raw=true)
 
 
+## Components 
+
+**Node.js App**:
+- The Node.js application is instrumented with the OpenTelemetry SDK to generate telemetry data (traces).
+- It connects to the MySQL database to store and retrieve application data.
+- It connects to the Redis server for caching purposes.
+
+**MySQL**:
+- The database server where the application's persistent data is stored.
+
+**Redis**:
+- The caching layer used by the Node.js application to store frequently accessed data for faster retrieval.
+
+**OpenTelemetry (OTel) Collector**:
+- Receives telemetry data from the Node.js application.
+- Collects, processes, and exports telemetry data to Tempo.
+
+**Tempo**:
+- Stores the telemetry data (traces) received from the OTel Collector.
+
+**Grafana**:
+- Connects to Tempo to visualize the collected traces and provides monitoring and visualization capabilities for the distributed tracing setup.
+
+## How the Connections Work
+
+- **Node.js App to MySQL**: The Node.js application uses a MySQL client library to connect to the MySQL database.
+- **Node.js App to Redis**: The Node.js application uses a Redis client library to connect to the Redis server.
+- **Node.js App to OTel Collector**: The OpenTelemetry SDK in the Node.js application sends telemetry data to the OTel Collector.
+- **OTel Collector to Tempo**: The OTel Collector exports the telemetry data to Tempo for storage.
+- **Grafana to Tempo**: Grafana queries Tempo to retrieve and visualize the stored traces.
+
+
+
 ## Prerequisites
 - Docker and Docker Compose installed on your system.
 - Basic knowledge of Node.js, Express.js, and SQL/NoSQL databases.
