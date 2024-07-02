@@ -2,7 +2,7 @@
 
 This document outlines the process of setting up a layer 4 load-balanced Node.js application environment using Nginx. The setup consists of two identical Node.js applications, an Nginx server for load balancing. Here we will deploy it in AWS.
 
-![alt text](./image/Diagram.png)
+![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/Diagram.png)
 
 ## Task
 Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, and a MySQL database, all running in AWS EC2 instance.
@@ -16,7 +16,7 @@ Create a load-balanced environment with two Node.js applications, Nginx as a loa
 2. On the left-hand side, click on "Your VPCs".
 3. Click on "Create VPC" at the top right corner.
 
-   ![alt text](./image/create-vpc.jpeg)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/create-vpc.jpeg)
 
 4. Name your VPC using a tag.
 5. Set the IPv4 CIDR block to `10.0.0.0/16`.
@@ -28,7 +28,7 @@ Create a load-balanced environment with two Node.js applications, Nginx as a loa
 2. Click on "Create Subnet".
 
    <!-- ![Create Subnet](image) -->
-   ![alt text](./image/Create-subnet.jpeg)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/Create-subnet.jpeg)
 
 3. Designate the VPC you just created.
 4. Assign a CIDR block within your VPC’s range (e.g., `10.0.1.0/24`).
@@ -36,19 +36,19 @@ Create a load-balanced environment with two Node.js applications, Nginx as a loa
 6. Enable "Auto-assign public IPv4 address" and save.
 
    <!-- ![Enable Auto-assign IPv4](image) -->
-   ![alt text](./image/edit-subnet-settings.jpeg)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/edit-subnet-settings.jpeg)
 
 ### Step 3: Create and Attach an Internet Gateway
 1. Click on "Internet Gateways" on the left-hand side.
 2. Click "Create internet gateway".
 
    <!-- ![Create Internet Gateway](image) -->
-   ![alt text](./image/create-internet-gateway.jpeg)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/create-internet-gateway.jpeg)
 
 3. Once created, click "Actions" and then "Attach to VPC".
 4. Select your VPC and attach the Internet Gateway.
 
-   ![alt text](./image/Attach-to-VPC.jpeg)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/Attach-to-VPC.jpeg)
 
 ### Step 4: Create Route Tables
 1. Click on "Route Tables" on the left-hand side.
@@ -56,27 +56,27 @@ Create a load-balanced environment with two Node.js applications, Nginx as a loa
 3. Associate the new route table with your VPC.
 4. Edit the route table and add a route to allow internet traffic by specifying the destination `0.0.0.0/0` and target as your Internet Gateway.
 
-    ![alt text](./image/edit-route.png)
+    ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/edit-route.png)
 
-    ![alt text](./image/add-route.png)
+    ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/add-route.png)
 
 5. Click on the "Subnet Associations" tab, then "Edit Subnet Associations".
 6. Select your public subnet and save.
 
    <!-- ![Associate Subnet](image) -->
-   ![alt text](./image/subnet-association.png)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/subnet-association.png)
 
 ### Network Diagram
 Below is a visual representation of the VPC setup with subnets.
 
    <!-- ![VPC Network Diagram](image) -->
-   ![alt text](./image/resource-map.png)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/resource-map.png)
 
 ### Step 5: Launch three EC2 Instances
 1. In the AWS console, search for "EC2" and click on "Launch Instance".
 2. Select the Ubuntu image for Amazon Linux.
 
-   ![alt text](./image/instance.png)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/instance.png)
 
 3. Choose the instance type, e.g., `t2.micro`.
 4. Configure instance details, selecting the VPC and public subnet you created.
@@ -91,14 +91,14 @@ Below is a visual representation of the VPC setup with subnets.
 1. To allow all network traffic to your EC2 instance, navigate to the Amazon EC2 console, select "Security Groups" from the left pane, and choose the security group associated with your instance. 
 2. Edit the inbound rules, add a rule for "All traffic" with the protocol set to "All" and the port range set to "All." For the source, select "Anywhere-IPv4" (0.0.0.0/0). Save the rules to apply the changes.
 
-![alt text](./image/nginx-inbound.png)
+![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/nginx-inbound.png)
 
 ### Step 7: Access the EC2 Instance
 1. Select your running instance in the EC2 console.
 2. Click "Connect".
 
    <!-- ![Connect to Instance](image) -->
-   ![alt text](./image/ssh-connect.png)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/ssh-connect.png)
 
 3. SSH into the Public Instance:
    - Open a terminal where you saved the key pair and run:
@@ -109,7 +109,7 @@ Below is a visual representation of the VPC setup with subnets.
      
    - Replace <public_instance_ip> with the public IP address of the public instance.
 
-   ![alt text](./image/ssh-nginx.png)
+   ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/ssh-nginx.png)
 
 Do this step to access all three instances.
 
@@ -255,9 +255,9 @@ This command starts the Nginx container with our custom configuration.
 
     Example:
 
-    ![alt text](./image/node-1-output.png)
+    ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/node-1-output.png)
 
-    ![alt text](./image/node-2-output.png)
+    ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/node-2-output.png)
 
 ## Conclusion
 
