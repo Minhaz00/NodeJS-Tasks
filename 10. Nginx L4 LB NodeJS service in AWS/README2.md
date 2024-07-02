@@ -52,9 +52,9 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
 #### Create the NodeJS App EC2 Instances:
 - Launch two EC2 instances (let's call them `node-app-1` and `node-app-2`) in our private subnet.
 - Choose an appropriate AMI (e.g., Ubuntu).
-- Configure the instances with necessary security group rules to allow HTTP/HTTPS traffic (typically port 80/443).
+- Configure the instances with necessary security group rules:
 
-<!-- ![security group]() -->
+![alt text](./image/11.png)
 
 - Assign a key pair <MyKeyPair.pem> for SSH access.
 
@@ -62,7 +62,7 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
 - Launch another EC2 instance for the NGINX load balancer (let's call it `nginx-lb`) in our public subnet.
 - Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the NodeJS servers.
 
-<!-- ![security group]() -->
+![alt text](./image/12.png)
 
 - Assign a key pair e.g. <MyKeyPair.pem> for SSH access.
 
