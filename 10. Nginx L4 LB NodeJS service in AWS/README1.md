@@ -168,7 +168,7 @@ Do the same for both nodejs app instances. Make sure they are running and connec
 
 ## Set up Nginx
 
-Now, connect to teh `nginx` instance and create a `nginx.conf` file and a `Dockerfile`. You also need to install `Docker`. 
+Now, connect to the `nginx` instance and create a `nginx.conf` file and a `Dockerfile`. You also need to install `Docker`. 
 
 ### Create Nginx Configuration
 ```bash
