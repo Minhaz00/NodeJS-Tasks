@@ -1,4 +1,4 @@
-# Nginx Layer 4 weighted Load Balancing on NodeJS-MySQL App in AWS
+# Nginx Layer 4 Load Balancing on Node.js servers (private subnet) in AWS
 
 This document outlines the process of setting up a `layer 4` load-balanced Node.js application environment using Nginx. The setup consists of two identical `Node.js` applications, an `Nginx` server.
 
@@ -21,29 +21,29 @@ At first, we need to create a VPC in AWS, configure subnet, route tables and int
 
 3. Create a private subnet named: `private-subnet`.
 
-![subent](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/1.png)
+![subent](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/1.png?raw=true)
 
 3. Create a public route table named `rt-public` and associate it with `public-subnet`.
 
 4. Create a private route table named `rt-private` and associate it with `private-subnet`
 
-![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/2.png)
+![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/2.png?raw=true)
 
 5. Create an internet gateway named `igw` and attach it to `my-vpc`.
 
-![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/3.png)
+![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/3.png?raw=true)
 
 6. Create a NAT gateway named `nat-gw` and associate it with `public-subnet`.
 
-![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/4.png)
+![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/4.png?raw=true)
 
 7. Configure the route tables to use the internet gateway and NAT gateway.
 
-![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/5.png)
+![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/5.png?raw=true)
 
 Here is the `resource-map` of our VPC:
 
-![alt text](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/6.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/6.png?raw=true)
 
 ### Create and setup EC2 instances
 
@@ -54,7 +54,7 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
 - Choose an appropriate AMI (e.g., Ubuntu).
 - Configure the instances with necessary security group rules:
 
-![alt text](./image/11.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/11.png?raw=true)
 
 - Assign a key pair <MyKeyPair.pem> for SSH access.
 
@@ -62,13 +62,13 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
 - Launch another EC2 instance for the NGINX load balancer (let's call it `nginx-lb`) in our public subnet.
 - Configure the instance with a security group to allow incoming traffic on the load balancer port (typically port 80/443) and outgoing traffic to the NodeJS servers.
 
-![alt text](./image/12.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/12.png?raw=true)
 
 - Assign a key pair e.g. <MyKeyPair.pem> for SSH access.
 
 ### Now connect the Public and private instance using SSH command:
 
-![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/10.png)
+![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/10.png?raw=true)
 
 ### Access the Public Instance via SSH
 
@@ -88,7 +88,7 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
    - You should be able to login to the instance now.
    - Now run `exit` to return to your local terminal.
 
-   ![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/7.png)
+   ![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/7.png?raw=true)
 
 #### Copy the Key Pair to the Public Instance
 
@@ -100,7 +100,7 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
 
     - Replace <public_instance_ip> with the public IP address of the public instance and the <MyKeyPair.pem> with the keypair.
 
-    ![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/8.png)
+    ![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/8.png?raw=true)
 
 #### SSH from the Public Instance to the Private Instance
 
@@ -123,7 +123,7 @@ We need to create `3 instances` in EC2. One in the public subnet for `nginx` ser
 
     - Remember to Replace the <private_instance_ip> with the private IP address of the private instance.
 
-    ![](https://github.com/Konami33/poridhi.io.intern/raw/main/NGINX%20as%20a%20Load-Balancer/1/images/9.png)
+    ![](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/9.png?raw=true)
 
 ## Set up Node.js Applications
 

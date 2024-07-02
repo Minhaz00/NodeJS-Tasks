@@ -1,4 +1,4 @@
-# Nginx Layer 4 Load Balancing on Node.js servers in AWS
+# Nginx Layer 4 Load Balancing on Node.js servers (public subnet) in AWS
 
 This document outlines the process of setting up a layer 4 load-balanced Node.js application environment using Nginx. The setup consists of two identical Node.js applications, an Nginx server for load balancing. Here we will deploy it in AWS.
 
