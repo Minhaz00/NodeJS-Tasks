@@ -335,9 +335,9 @@ This command starts the Nginx container with our custom configuration.
 
     Example:
 
-    ![alt text](https://github.com/Konami33/poridhi.io.intern/blob/main/NGINX%20as%20a%20Load-Balancer/5/images/Screenshot%202024-06-26%20214643.png?raw=true)
+    ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/node-1-output.png)
 
-    ![alt text](https://github.com/Konami33/poridhi.io.intern/blob/main/NGINX%20as%20a%20Load-Balancer/5/images/Screenshot%202024-06-26%20214707.png?raw=true)
+    ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/node-2-output.png)
    
 ## Conclusion
 
