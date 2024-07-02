@@ -5,7 +5,7 @@ This document outlines the process of setting up a layer 4 load-balanced Node.js
 ![alt text](https://raw.githubusercontent.com/Minhaz00/NodeJS-Tasks/main/10.%20Nginx%20L4%20LB%20NodeJS%20service%20in%20AWS/image/Diagram.png)
 
 ## Task
-Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, and a MySQL database, all running in AWS EC2 instance.
+Create a load-balanced environment with two Node.js applications, Nginx as a load balancer, all running in AWS EC2 instance.
 
 ## Setup in AWS
 
