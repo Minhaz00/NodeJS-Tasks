@@ -65,7 +65,7 @@ ssh-keygen -f id_rsa -m PEM -e > my-key-pair.pem
 
 Here are the files in  `.ssh`:
 
-![alt text](./images/image-9.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-9.png?raw=true)
 
 
 
@@ -84,12 +84,12 @@ cd pulumi-aws-setup
 pulumi new aws-javascript
 ```
 
-#### Configure AWS CLI
+<!-- #### Configure AWS CLI
 
 Ensure you have the AWS CLI installed and configured with your credentials.
 ```bash
 aws configure
-```
+``` -->
 
 ### Step 2: Write Pulumi Code
 
