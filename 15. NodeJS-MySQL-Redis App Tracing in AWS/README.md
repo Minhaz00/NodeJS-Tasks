@@ -3,7 +3,7 @@
 Tracing is a method to monitor and track requests as they traverse through various services and systems. This guide will help you set up distributed tracing in a Node.js application using OpenTelemetry and Grafana Tempo. 
 
 
-![alt text](image-1.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-1.png?raw=true)
 
 ## Components 
 
@@ -40,10 +40,38 @@ Tracing is a method to monitor and track requests as they traverse through vario
 
 ## Deploy AWS Infrastucture with Pulumi using GitHub Actions 
 
-![alt text](image.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image.png?raw=true)
 
 
-### Step 1: Set Up Pulumi Locally
+### Step 0: Generate key for Instace
+
+Run the following command locally:
+
+```
+ssh-keygen -t rsa -b 2048 
+```
+
+This will generate two files, typically in the ~/.ssh directory:
+
+- id_rsa (private key)
+- id_rsa.pub (public key)
+
+Create a `.pem` file for ssh:
+
+```shell
+cd .ssh
+ssh-keygen -f id_rsa -m PEM -e > my-key-pair.pem
+```
+
+Here are the files in  `.ssh`:
+
+![alt text](./images/image-9.png)
+
+
+
+
+
+### Step 1: Set Up Pulumi
 
 #### Install Pulumi CLI
 Follow the installation instructions on the Pulumi installation page.
@@ -239,7 +267,7 @@ Go to your **GitHub repository** > **Settings** > **Secrets and variables** > **
 - AWS_ACCESS_KEY_ID
 - AWS_SECRET_ACCESS_KEY
 
-![alt text](image-2.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-2.png?raw=true)
 
 ### Step 5: Push Changes to GitHub
 ```bash
@@ -252,32 +280,32 @@ This setup will create a `VPC`, a public `subnet` with the necessary `route tabl
 
 If we got to **github repository** > **Actions** we can see the workflow that we created running. We can also see the details by clicking it:
 
-![alt text](image-5.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-5.png?raw=true)
 
 ### Step 6: Verify the Infrastructure in AWS
 
 #### Resource map:
 
-![alt text](image-3.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-3.png?raw=true)
 
 #### Security group inbound rules:
 
 Here I have allowed `all traffic` manually for now: 
 
-![alt text](image-4.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-4.png?raw=true)
 
 #### EC2 Instances:
 
-![alt text](image-6.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-6.png?raw=true)
 
 
 ## Setup NodeJS service, MySQL and Redis in instance-1
 
 Go to `instance-1` and click `connect`. Go to `SSH client`. You will get a SSH command something like this:
 
-![alt text](image-7.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-7.png?raw=true)
 
-Use it from your terminal to SSH into that instance.
+Go to your .`.ssh` folder where we have the private key to SSH into the instance. Use it from your terminal to SSH into that instance.
 
 Once you are connected to the instance, follow the steps below:
 
@@ -635,7 +663,7 @@ node index.js
 
 Go to `instance-2` and click `connect`. Go to `SSH client`. You will get a SSH command something like this:
 
-![alt text](image-7.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-7.png?raw=true)
 
 Use it from your terminal to SSH into that instance.
 
@@ -775,7 +803,7 @@ docker compose up -d
 
 If we visit `https://<instance-1-public-ip>:5000` we will see our node app:
 
-![alt text](image-8.png)
+![alt text](https://github.com/Minhaz00/NodeJS-Tasks/blob/main/15.%20NodeJS-MySQL-Redis%20App%20Tracing%20in%20AWS/images/image-8.png?raw=true)
 
 We can also perform CRUD operations with `/user` route. We can see traces of  our operations in grafana.
 
