@@ -29,7 +29,7 @@ services:
     container_name: otel-collector
     ports:
       - "4317:4317"
-      - "55681:55681"
+      - "55682:55681"
     volumes:
       - ./otel-collector-config.yml:/etc/otel-collector-config.yml
     command:
