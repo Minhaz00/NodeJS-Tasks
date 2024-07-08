@@ -3,6 +3,7 @@ const express = require('express');
 const sequelize = require('./config/database');
 const redisClient = require('./config/redis');
 const User = require('./models/User');
+const { trace } = require('@opentelemetry/api');
 
 const app = express();
 app.use(express.json());
@@ -41,15 +42,21 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user', async (req, res) => {
+  const span = trace.getTracer('user-service').startSpan('get_all_users');
   try {
     const users = await User.findAll();
     res.json(users);
   } catch (error) {
+    span.recordException(error);
     res.status(500).json({ error: error.message });
+  } finally {
+    span.end();
   }
 });
 
 app.get('/user/:username', cache, async (req, res) => {
+  const span = trace.getTracer('user-service').startSpan('get_user_by_username');
+  span.setAttribute('username', req.params.username);
   try {
     const { username } = req.params;
     const user = await User.findOne({ where: { username } });
@@ -61,24 +68,35 @@ app.get('/user/:username', cache, async (req, res) => {
       res.status(404).send('User not found');
     }
   } catch (error) {
+    span.recordException(error);
     res.status(500).send(error.message);
+  } finally {
+    span.end();
   }
 });
 
 app.post('/user', async (req, res) => {
+  const span = trace.getTracer('user-service').startSpan('create_user');
   try {
     const { username, email } = req.body;
+    span.setAttributes({ username, email });
     const newUser = await User.create({ username, email });
     res.status(201).json(newUser);
   } catch (error) {
+    span.recordException(error);
     res.status(500).send(error.message);
+  } finally {
+    span.end();
   }
 });
 
 app.put('/user/:username', invalidateCache, async (req, res) => {
+  const span = trace.getTracer('user-service').startSpan('update_user');
+  span.setAttribute('username', req.params.username);
   try {
     const { username } = req.params;
     const { email } = req.body;
+    span.setAttribute('new_email', email);
     const user = await User.findOne({ where: { username } });
 
     if (user) {
@@ -90,11 +108,16 @@ app.put('/user/:username', invalidateCache, async (req, res) => {
       res.status(404).send('User not found');
     }
   } catch (error) {
+    span.recordException(error);
     res.status(500).send(error.message);
+  } finally {
+    span.end();
   }
 });
 
 app.delete('/user/:username', invalidateCache, async (req, res) => {
+  const span = trace.getTracer('user-service').startSpan('delete_user');
+  span.setAttribute('username', req.params.username);
   try {
     const { username } = req.params;
     const user = await User.findOne({ where: { username } });
@@ -107,7 +130,10 @@ app.delete('/user/:username', invalidateCache, async (req, res) => {
       res.status(404).send('User not found');
     }
   } catch (error) {
+    span.recordException(error);
     res.status(500).send(error.message);
+  } finally {
+    span.end();
   }
 });
 
