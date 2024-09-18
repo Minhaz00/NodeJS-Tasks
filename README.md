@@ -1,6 +1,6 @@
 
 
-# NodeJS-MySQL Applicaiton
+# NodeJS + MySQL Labs
 
 - [Working with MySQL container](https://github.com/Minhaz00/NodeJS-MySQL/tree/main/1.%20Working%20With%20MySQL%20container)
 
